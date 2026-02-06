@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever | 2026</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Inter:wght@200;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --accent-red: #ff3366;
+            --soft-pink: #ff8fa3;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+        /* --- Interactive Background Canvas --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        /* --- Layout Sections --- */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero-content {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff, var(--soft-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* --- Role Cards (Modern Grid) --- */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .role-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 51, 102, 0.05);
+            border-color: var(--accent-red);
+        }
+
+        .role-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--soft-pink);
+        }
+
+        /* --- Scroll Driven Reveal (2026 Tech) --- */
+        .reveal {
+            view-timeline-name: --revealing-image;
+            view-timeline-axis: block;
+            animation: linear reveal both;
+            animation-timeline: --revealing-image;
+            animation-range: entry 25% cover 50%;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(100px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* --- Message Section --- */
+        .love-letter {
+            max-width: 700px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 2;
+            color: #ddd;
+        }
+
+        .highlight {
+            color: var(--accent-red);
+            font-style: italic;
+        }
+
+        /* --- Heart Interaction Button --- */
+        .interaction-button {
+            background: none;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 1.2rem 3rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .interaction-button:hover {
+            background: var(--accent-red);
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
+        }
+
+        /* --- Floating Hearts Container --- */
+        #heart-burst-container {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-note {
+            padding: 4rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div id="heart-burst-container"></div>
+
+    <!-- Section 1: Hero -->
+    <section>
+        <div class="hero-content">
+            <p class="hero-subtitle">Happy Valentine's Day, My Love</p>
+            <h1 class="hero-title">Beyond Every<br>Measure.</h1>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">
+                A digital space dedicated to the one who makes every day a journey worth taking.
+            </p>
+            <a href="#journey" style="text-decoration: none;">
+                <button class="interaction-button">Begin The Journey</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Section 2: Roles -->
+    <section id="journey">
+        <div class="container">
+            <h2 class="serif reveal" style="font-size: 3.5rem; text-align: center; margin-bottom: 3rem;">You are my everything.</h2>
+            <div class="roles-grid">
+                <div class="role-card reveal">
+                    <h3>The Love of My Life</h3>
+                    <p>My partner in every dream, every quiet morning, and every grand adventure. You are the home I always want to come back to.</p>
+                </div>
+                <div class="role-card reveal">
+                    <h3>The Best Mother</h3>
+                    <p>Watching you with our daughter is my greatest joy. Your strength, patience, and love shape her world in the most beautiful ways.</p>
+                </div>
+                <div class="role-card reveal">
+                    <h3>My Best Friend</h3>
+                    <p>The first person I want to tell everything to. My confidant, my anchor, and my favorite person to simply exist with.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Message -->
+    <section>
+        <div class="love-letter reveal">
+            <p class="serif">"In this life, there are moments that define us. For me, those moments all have <span class="highlight">you</span> in them. Thank you for being the heart of our family and the soul of my world."</p>
+            <p style="margin-top: 2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px;">Forever & Always</p>
+            
+            <button class="interaction-button" onclick="burstHearts()">Click For a Surprise</button>
+        </div>
+    </section>
+
+    <footer class="footer-note">
+        Built with love for the most special woman in the world &bull; 2026
+    </footer>
+
+    <script>
+        /**
+         * 2026 Interactive Canvas Background
+         * Creates a subtle, flowing mesh-like particle system
+         */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 143, 163, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        /**
+         * Interactive Heart Burst Effect
+         */
+        function burstHearts() {
+            const container = document.getElementById('heart-burst-container');
+            const colors = ['#ff3366', '#ff8fa3', '#ffffff', '#ffb3c1'];
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.left = '50%';
+                heart.style.top = '70%';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.userSelect = 'none';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 15 + 5;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                container.appendChild(heart);
+
+                let posX = window.innerWidth / 2;
+                let posY = window.innerHeight * 0.7;
+                let opacity = 1;
+
+                const moveHeart = () => {
+                    posX += vx;
+                    posY += vy;
+                    opacity -= 0.015;
+                    heart.style.transform = `translate(${posX - window.innerWidth / 2}px, ${posY - window.innerHeight * 0.7}px)`;
+                    heart.style.opacity = opacity;
+
+                    if (opacity > 0) {
+                        requestAnimationFrame(moveHeart);
+                    } else {
+                        heart.remove();
+                    }
+                };
+                moveHeart();
+            }
+        }
+
+        // Custom smooth scroll for the "Begin" button
+        document.querySelector('.interaction-button').addEventListener('click', (e) => {
+            const href = e.target.closest('a')?.getAttribute('href');
+            if(href && href.startsWith('#')) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
